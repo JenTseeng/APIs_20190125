@@ -43,10 +43,15 @@ def find_afterparties():
 
         # - Make a request to the Eventbrite API to search for events that match
         #   the form data.
+        payload = {'q':query,'sort_by':sort,'location.address':location,
+                    'location.within':''.join([distance,measurement])}
+        url = 'https://www.eventbriteapi.com/v3/events/search'
+        response = requests.get(url, params=payload)
+        data = response.json()
         # - (Make sure to save the JSON data from the response to the data
         #   variable so that it can display on the page as well.)
 
-        data = {'This': ['Some', 'mock', 'JSON']}
+        #data = {'This': ['Some', 'mock', 'JSON']}
         events = []
 
         return render_template("afterparties.html",
